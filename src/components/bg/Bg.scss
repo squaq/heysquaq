@@ -1,24 +1,15 @@
-$width: 300;
-$height: 300;
-$qs: 50;
-$cols: $width / $qs;
-$rows: $height / $qs;
-$length: $cols * $rows;
-
 .bg {
   position: absolute;
   background-size: cover;
   background-position: center center;
   background-image: url('https://scontent.flis8-1.fna.fbcdn.net/v/t1.0-9/12523168_10208185336488674_7342695909094402_n.jpg?_nc_cat=109&_nc_sid=7aed08&_nc_eui2=AeE2Ju4hJ46Hqlayb1_5YI1bDXgf75KoBa0NeB_vkqgFre-jCJnxE7U7qY4l8kuaxEc&_nc_ohc=FPA3uz-B-4IAX8v_8xn&_nc_ht=scontent.flis8-1.fna&oh=8e9e927f3dca797e4312b0bcdef360bc&oe=5EED2594');
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   clip-path: url(#quads);
   
 }
 
 svg {
-  width: #{$width}px;
-  height: #{$height}px;
   position: relative;
 }
 .quads {
@@ -31,13 +22,6 @@ svg {
 	transform: scale(0);
   animation: bloq  3s ease infinite alternate;
 }
-
-@for $i from 0 through $length {
-  .quad:nth-child(#{$i}) {
-    animation-delay: calc(#{$i} * .02s);
-  }
-}
-
 
 @keyframes bloq {
   0% {

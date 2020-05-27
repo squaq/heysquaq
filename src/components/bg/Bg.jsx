@@ -2,22 +2,27 @@ import React, { Component } from 'react';
 import './Bg.scss';
 
 class Bg extends Component {
-
-
   createQuads() {
-    const w = 300;
-    const h = 300;
-    const size = 50;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    console.log('createQuads', (100 * (w / h).toFixed(0)))
+    const size = (100 * (w / h).toFixed(0));
     let quadsEl = [];
-    
+    let cont = 0;
     for(let x = 0; x < w; x += size) {
       for(let y = 0; y < h; y += size) {
         let rect = (
           <rect
             x={x} y={y} width={size} height={size}
-            className="quad" style={{transformOrigin: `${x + (size/2)}px ${y + (size/2)}px`}} key={`${x}${y}`}/>
+            className="quad" style={
+              {
+                transformOrigin: `${x + (size/2)}px ${y + (size/2)}px`,
+                animationDelay: `${cont * .02}s`
+              }} key={`${x}${y}`
+            }/>
         );
         quadsEl.push(rect);
+        cont++;
       }
     }
     return quadsEl;
@@ -27,7 +32,7 @@ class Bg extends Component {
     return (
       <div>
         <div className="bg"></div>
-        <svg>
+        <svg width={window.innerWidth} height={window.innerHeight}>
           <clipPath id="quads">
             {this.createQuads()}
           </clipPath>
