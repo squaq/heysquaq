@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import './Bg.scss';
 
 class Bg extends Component {
+  state = {showChild: false};
   createQuads() {
     const w = window.innerWidth;
     const h = window.innerHeight;
-    console.log('createQuads', (100 * (w / h).toFixed(0)))
     const size = (100 * (w / h).toFixed(0));
     let quadsEl = [];
     let cont = 0;
-    for(let x = 0; x < w; x += size) {
-      for(let y = 0; y < h; y += size) {
+    for(let y = 0; y < h; y += size) {
+      for(let x = 0; x < w; x += size) {
         let rect = (
           <rect
             x={x} y={y} width={size} height={size}
@@ -27,16 +27,30 @@ class Bg extends Component {
     }
     return quadsEl;
   }
+  componentDidMount() {
+    const timetend = (window.innerWidth * window.innerHeight) / 1000;
+    console.log('timetend', timetend)
+    setTimeout(() => {
+      this.setState({showChild: true});
+    }, timetend);
 
+  }
   render() {
     return (
       <div>
-        <div className="bg"></div>
-        <svg width={window.innerWidth} height={window.innerHeight}>
-          <clipPath id="quads">
-            {this.createQuads()}
-          </clipPath>
-        </svg>
+        <div className="container container--bg">
+          <div className="bg"></div>
+          <svg width={window.innerWidth} height={window.innerHeight}>
+            <clipPath id="quads">
+              {this.createQuads()}
+            </clipPath>
+          </svg>
+        </div>
+        <div className="container container--child">
+          {
+          this.state.showChild && 
+          this.props.children}
+        </div>
       </div>
     );
   }
